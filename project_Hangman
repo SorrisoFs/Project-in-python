@@ -1,0 +1,63 @@
+# Criação de um jogo da forca em Python
+
+import random
+
+lista = ['amor', 'banana', 'carro', 'desenvolvimento', 'elefante', 'futebol', 'girafa', 'helicoptero', 'internet', 'jardim',
+         'kiwi', 'livro', 'montanha', 'navio', 'oceano', 'piano', 'quadro', 'rio', 'sorvete', 'tigre','uva', 'violao', 'xadrez', 'zebra',
+         'abacaxi', 'bicicleta', 'computador', 'dinossauro', 'escola', 'fabrica', 'geladeira', 'hospital', 'ilha', 'janela']
+palavra = random.choice(lista)
+acertos = []
+digitadas = []
+erros = 0
+
+while True:
+    senha = ''
+    for letra in palavra:
+        senha += letra if letra in acertos else '.'
+    if senha == palavra:
+        print(f'Boa! a palavra era {palavra}. Parabéns! Você ganhou!'.upper())
+        break
+    print()
+    print(f'A palavra contem {senha} ')
+    tentativa = str(input('Digite uma letra: ')).lower().strip()
+    if tentativa in digitadas:
+        print('Você ja tentou essa letra. Tente outra.'.upper())
+        continue
+    else:
+        digitadas += tentativa
+    
+        if tentativa == palavra:
+            print('Parabéns!!! Você acertou de primeira!!! Mérito seu.'.upper())
+            break
+
+        elif tentativa in palavra:
+            acertos += tentativa
+            print('Você acertou uma letra!'.upper())
+            
+        else:
+            erros += 1
+            print('Você errou!'.upper())
+    print()
+    print('  FORCA')
+    print('X===:===X')    
+    print('    |    ')
+    print('X   O   ' if erros >= 1 else 'X')
+    linha2 = ''
+    if erros == 2:
+        linha2 = '   |    '
+    elif erros == 3:
+        linha2 = '  \|    '
+    elif erros >= 4:
+        linha2 = '  \|/   '
+    print(f'X{linha2}')
+    linha3 = ''
+    if erros == 5:
+        linha3 += '  /     '
+    elif erros >= 6:
+        linha3 += '  / \    '
+    print(f'X{linha3}')
+          
+    if erros == 6:
+        print(f'GAME OVER! A palavra era {palavra.upper()}')
+        break
+        
